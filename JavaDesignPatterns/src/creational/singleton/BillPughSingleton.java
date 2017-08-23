@@ -12,12 +12,26 @@ public class BillPughSingleton {
 	
 	private BillPughSingleton(){}
 	
+	static{
+		System.out.println("before singletonHelper is loaded");
+	}
+	{
+		System.out.println("After static block");
+	}
 	private static class SingletonHelper{
+		static{
+			System.out.println("Inside helper");
+		}
+		
 		private static final BillPughSingleton instance = new BillPughSingleton();
 	}
 	
 	public static BillPughSingleton getInstance() {
 		return SingletonHelper.instance;
+	}
+	
+	public static void testmethod() {
+		System.out.println("hello");
 	}
 
 }

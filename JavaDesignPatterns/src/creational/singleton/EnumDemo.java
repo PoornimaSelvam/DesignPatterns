@@ -5,9 +5,11 @@ public class EnumDemo {
 	public static void main(String[] args) {
 		EnumSingleton singleton = EnumSingleton.INSTANCE;
 		
-		System.out.println(singleton.getValue());
-		singleton.setValue(2);
-		System.out.println(singleton.getValue());
+		EnumSingleton singleton2 = EnumSingleton.INSTANCE;
+		
+		System.out.println(singleton.hashCode());
+		//singleton.setValue(2);
+		System.out.println(singleton2.hashCode());
 	}
 
 }

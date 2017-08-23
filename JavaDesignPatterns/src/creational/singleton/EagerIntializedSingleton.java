@@ -3,7 +3,8 @@ package creational.singleton;
 /**
  * @author Poornima
  * 
- * Eager initialization (Static Factory method) - Instance of singleton class is created at the time of class loading. 
+ * Eager initialization (Static Factory method) - Instance of singleton class is created 
+ * at the time of class loading. 
  */
 public class EagerIntializedSingleton {
 	
