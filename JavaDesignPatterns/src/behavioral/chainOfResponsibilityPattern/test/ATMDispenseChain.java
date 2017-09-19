@@ -3,6 +3,7 @@ package behavioral.chainOfResponsibilityPattern.test;
 import java.util.Scanner;
 
 import behavioral.chainOfResponsibilityPattern.model.Currency;
+import behavioral.chainOfResponsibilityPattern.model.CurrencyDispenser;
 import behavioral.chainOfResponsibilityPattern.model.DispenseChain;
 import behavioral.chainOfResponsibilityPattern.model.Rupee10Dispenser;
 import behavioral.chainOfResponsibilityPattern.model.Rupee20Dispenser;
@@ -28,40 +29,36 @@ import behavioral.chainOfResponsibilityPattern.model.Rupee50Dispenser;
  * 5. Chain of Responsibility design pattern is good to achieve lose coupling but it comes with the trade-off of having a lot of implementation classes and 
  *    maintenance problems if most of the code is common in all the implementations.
  *    
+ *   eg. try/catch block 
  *   java.util.logging.Logger#log()
  *   javax.servlet.Filter#doFilter()
  * 
  */
 public class ATMDispenseChain {
 	
-	private DispenseChain c1;
-	
-	public ATMDispenseChain(){
-		//initialize the chain
-		this.c1 = new Rupee50Dispenser();
-		DispenseChain c2 = new Rupee20Dispenser();
-		DispenseChain c3 = new Rupee10Dispenser();
-		
-		//set the chain of Responsibility
-		c1.setNextChain(c2);
-		c2.setNextChain(c3);
-	}
-	
 	public static void main(String[] args) {
-		ATMDispenseChain atmDispenser = new ATMDispenseChain();
-		while (true) {
-			int amount = 0;
-			System.out.println("Enter amount to dispense");
-			Scanner input = new Scanner(System.in);
-			amount = input.nextInt();
-			if(amount % 10 != 0){
-				System.out.println("Amount should be in multiples of 10s.");
-				
-				return;
+		
+		CurrencyDispenser dispenser = new CurrencyDispenser();
+		//try-with resource java 7 feature
+		try(final Scanner scanner = new Scanner(System.in)) 
+		{
+			String flag = "Y";
+			while ("Y".equalsIgnoreCase(flag)) 
+			{
+				System.out.println("Enter amount to dispense");
+				int amount = scanner.nextInt();
+				if(amount % 10 != 0){
+					System.out.println("Amount should be in multiples of 10s.");
+					break;
+				} else {
+					dispenser.dispenseAmount(amount);
+					System.out.println("Do you wish to continue? (Y|N)");
+					flag = scanner.next();
+				}
 			}
-			
-			//process the request
-			atmDispenser.c1.dispense(new Currency(amount));
+		} 
+		finally {
+			System.out.println("Program ending");
 		}
 	}
 
