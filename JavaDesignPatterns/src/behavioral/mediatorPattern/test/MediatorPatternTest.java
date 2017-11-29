@@ -22,6 +22,6 @@ public class MediatorPatternTest {
 		controller.registerFlight(ai);
 		controller.registerFlight(ei);
 		
-		sj.send(sj.name() + "landing in terminal xxx in 10mins");
+		sj.send(sj.name() + " landing in terminal xxx in 10mins");
 	}
 }
